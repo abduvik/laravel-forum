@@ -14,4 +14,10 @@ class Thread extends Model
     {
         return '/treads' . $this->id;
     }
+
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
 }
