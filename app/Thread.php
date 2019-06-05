@@ -12,7 +12,7 @@ class Thread extends Model
 {
     public function path()
     {
-        return '/treads' . $this->id;
+        return '/threads/' . $this->id;
     }
 
 
