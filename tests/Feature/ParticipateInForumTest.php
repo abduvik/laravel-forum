@@ -32,7 +32,7 @@ class ParticipateInForumTest extends TestCase
     /** @test */
     public function unauthenticated_user_may_not_add_reply()
     {
-        $this->expectException(AuthenticationException::class);
+        $this->withoutExceptionHandling()->expectException(AuthenticationException::class);
 
         $this->post('/threads/1/replies',[]);
     }
