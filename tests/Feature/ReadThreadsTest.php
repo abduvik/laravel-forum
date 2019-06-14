@@ -44,7 +44,7 @@ class ReadThreadsTest extends TestCase
     public function single_thread_title_exists_on_single_page(): void
     {
 
-        $this->get('/threads/' . $this->thread->id)
+        $this->get($this->thread->path())
             ->assertSee($this->thread->title);
     }
 
@@ -53,7 +53,7 @@ class ReadThreadsTest extends TestCase
     {
         $reply = factory(Reply::class)->create(['thread_id' => $this->thread->id]);
 
-        $this->get('/threads/' . $this->thread->id)
+        $this->get($this->thread->path())
             ->assertSee($reply->body);
     }
 
