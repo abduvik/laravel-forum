@@ -45,4 +45,47 @@ class CreateThreadsTest extends TestCase
             ->assertSee($thread['title'])
             ->assertSee($thread['body']);
     }
+
+
+    /** @test */
+    public function a_thread_requires_a_title()
+    {
+        $this->actingAs(factory(User::class)->create());
+
+        $thread = factory(Thread::class)->raw(['title' => null]);
+
+        $response = $this->post('/threads', $thread)
+            ->assertSessionHasErrors('title');
+
+    }
+
+    /** @test */
+    public function a_thread_requires_a_body()
+    {
+        $this->actingAs(factory(User::class)->create());
+
+        $thread = factory(Thread::class)->raw(['body' => null]);
+
+        $response = $this->post('/threads', $thread)
+            ->assertSessionHasErrors('body');
+
+    }
+
+    /** @test */
+    public function a_thread_requires_a_valid_channel_id()
+    {
+        $this->actingAs(factory(User::class)->create());
+
+        $thread = factory(Thread::class)->raw(['channel_id' => null]);
+
+        $response = $this->post('/threads', $thread)
+            ->assertSessionHasErrors('channel_id');
+
+
+        $thread = factory(Thread::class)->raw(['channel_id' => 99]);
+
+        $response = $this->post('/threads', $thread)
+            ->assertSessionHasErrors('channel_id');
+
+    }
 }

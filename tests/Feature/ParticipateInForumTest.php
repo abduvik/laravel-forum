@@ -38,4 +38,19 @@ class ParticipateInForumTest extends TestCase
 
         $this->post($thread->path() . '/replies', []);
     }
+
+    /** @test */
+    public function a_reply_requires_a_body()
+    {
+        $this->actingAs(factory(User::class)->create());
+
+        $reply = factory(Reply::class)->raw(['body' => null]);
+
+        $thread = factory(Thread::class)->create();
+
+        $this->post($thread->path() . '/replies', $reply)
+            ->assertSessionHasErrors('body');
+
+
+    }
 }
