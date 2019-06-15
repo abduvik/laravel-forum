@@ -13,5 +13,23 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Channel extends Model
 {
-    //
+
+    public function threads()
+    {
+        return $this->hasMany(Thread::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    public function getPath()
+    {
+        $slug = $this->slug;
+        return "/threads/{$slug}";
+    }
 }
